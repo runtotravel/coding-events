@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head th:replace="fragments :: head">
+    <title>Coding Events</title>
+    <link th:href="@{styles.css}" rel="stylesheet"/>
+</head>
 <body class="container">
 
 <h1>All Events</h1>
-
-<nav th:replace="fragments :: navigation"></nav>
-<p th:unless="${events} and ${events.size()}">No events!</p>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tr th:each="event : ${events}">
-        <td th:text="${event}"></td>
+<table class="center">
+    <tr>
+        <th>Event Name</th>
+        <th>Description</th>
+        <th>Address</th>
     </tr>
+    <th:block th:each="event : ${events}">
+        <tr>
+            <td th:text="${event.key}"></td>
+            <td th:text="${event.value}"></td>
+            <th:block th:if='${event.key.equals("CES")}'}>
+                <td th:replace="fragments :: cesAddress"></td>
+            </th:block>
+            <th:block th:if='${event.key.equals("Hour of Code")}'}>
+                <td th:replace="fragments :: hourOfCodeAddress"></td>
+            </th:block>
+            <th:block th:if='${event.key.equals("Strange Loop")}'}>
+                <td th:replace="fragments :: strangeLoopAddress"></td>
+            </th:block>
+        </tr>
+
+    </th:block>
+
 </table>
+<!--<nav th:replace="fragments :: navigation"></nav>-->
+<!--<p th:unless="${events} and ${events.size()}">No events!</p>-->
+
+<!--<table class="table table-striped">-->
+<!--    <thead>-->
+<!--        <tr>-->
+<!--            <th>Name</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
+<!--    <tr th:each="event : ${events}">-->
+<!--        <td th:text="${event}"></td>-->
+<!--    </tr>-->
+<!--</table>-->
 
 </body>
 </html>
